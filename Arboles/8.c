@@ -40,39 +40,25 @@ void addnodo(arbol *a, TElememtoA e)
     (*a)->izq = NULL;
     (*a)->der = NULL;
 }
-    
-int contMenoresImp(arbol a, int x, int n)
+
+int busquedaXeY(arbol a, int x, int y)
 {
-    if (a == NULL)
+    if(a == NULL)
     {
         return 0;
     }
     else
     {
-        if (n < x && a->dato % 2 != 0)
+        if(a->dato > x && a->dato < y)
         {
-            return 1 + contMenoresImp(a->der, x, n + 1) + +contMenoresImp(a->izq, x, n + 1);
+            return 1 + busquedaXeY(a->der, x, y) + busquedaXeY(a->izq, x, y);
         }
-        else
+        else if(a->dato > y)
         {
-            return contMenoresImp(a->der, x, n + 1) + +contMenoresImp(a->izq, x, n + 1);
-        }
-    }
-}
-
-
-void contarMenoresImpares(arbol a, int x, int n, int *cont)
-{
-    if( a !=  NULL)
-    {
-        if(n < x)
+            return busquedaXeY(a->izq, x, y);
+        }else
         {
-            if(a->dato % 2 != 0)
-            {
-               *cont += 1; 
-            }
-            contarMenoresImpares(a->der, x, n, cont);
-            contarMenoresImpares(a->izq, x, n, cont);
+            return busquedaXeY(a->der, x, y);
         }
     }
 }
